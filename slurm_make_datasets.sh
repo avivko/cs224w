@@ -10,7 +10,7 @@
 module load cuda/11.3.1
 
 source $HOME/.bashrc
-conda activate cs224wproj
+conda activate graphein-gpu
 
 working_dir=$HOME/cs224w
 export TORCH_HOME=$working_dir/torch_home

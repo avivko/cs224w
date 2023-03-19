@@ -12,6 +12,9 @@ module load cuda/11.3.1
 source $HOME/.bashrc
 conda activate cs224wproj
 
+working_dir=$HOME/cs224w
+export TORCH_HOME=$working_dir/torch_home
+
 config=config_1A
 
-python working_dir/cs224w/src/multi_configs_to_pyg.py $config
+python $working_dir/cs224w/src/multi_configs_to_pyg.py $config

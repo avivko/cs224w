@@ -231,6 +231,7 @@ def process_features(batch, just_onehot: bool, also_concat_coords=False):
             att_onehot = torch.FloatTensor(lb.transform(attr[0]))
             h_list.append(att_onehot)
         else:
+            print(attr)
             if len(attr.shape) == 1:
                 attr = attr.unsqueeze(1)
             h_list.append(attr)

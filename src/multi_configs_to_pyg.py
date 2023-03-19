@@ -168,7 +168,7 @@ convertor = GraphFormatConvertor(src_format="nx", dst_format="pyg", columns=["co
 train_ds = InMemoryProteinGraphDataset(
     root=DATA,
     name="train",
-    pdb_codes=train[:1],
+    pdb_codes=train,
     graph_label_map=train_label_map,
     graphein_config=config,
     graph_format_convertor=convertor,

@@ -15,8 +15,6 @@ conda activate cs224wproj
 working_dir=$HOME/cs224w
 export TORCH_HOME=$working_dir/torch_home
 
-#identifier=known_simple_Aug3
-#model=GCN
-#epochs=50
+config=known_simple_Aug3
 
-python working_dir/cs224w/src/multi_configs_to_pyg.py
+python working_dir/cs224w/src/multi_configs_to_pyg.py config_1A

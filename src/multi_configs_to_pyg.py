@@ -172,8 +172,7 @@ train_ds = InMemoryProteinGraphDataset(
     graph_label_map=train_label_map,
     graphein_config=config,
     graph_format_convertor=convertor,
-    graph_transformation_funcs=[],
-    num_cores=1
+    graph_transformation_funcs=[]
     )
 
 valid_ds = InMemoryProteinGraphDataset(

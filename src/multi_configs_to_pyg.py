@@ -50,7 +50,6 @@ train = train.sort_index(); valid = valid.sort_index(); test = test.sort_index()
 
 # make label one-hots and label map
 def make_label_map(pdbs, onehots):
-  # label_map = {pdbs.iloc[i]:torch.tensor(onehots[i]) for i, k in enumerate(onehots)}
   label_map = {}
   for idx, pdb in enumerate(onehots):
     label_map[pdbs.iloc[idx]] = torch.tensor(onehots[idx])
@@ -121,15 +120,6 @@ one_hot = {"node_metadata_functions" : [gp.amino_acid_one_hot]}
 esm_func = get_esm_funcs(get_seq_esm=True, get_res_esm=True)
 
 # C:
-'''
-all_graph_metadata = {"graph_metadata_functions" : [gp.rsa,
-                                                    ].append(esm_func['graph_metadata_functions'])}
-all_node_metadata = {"node_metadata_functions" : [gp.amino_acid_one_hot,
-                                                  gp.meiler_embedding,                          
-                                                  partial(gp.expasy_protein_scale, add_separate=True)],
-                     "dssp_config": gp.DSSPConfig()}
-'''
-
 all_graph_metadata = {"graph_metadata_functions" : [gp.rsa,
                                                     gp.secondary_structure
                                                     ] + esm_func['graph_metadata_functions']}
@@ -139,7 +129,6 @@ all_node_metadata = {"node_metadata_functions" : [gp.amino_acid_one_hot,
                      "dssp_config": gp.DSSPConfig()}
 
 # ['amino_acid_one_hot', 'esm', 'rsa', 'meiler', 'molecularweight', 'ss', 'bulkiness', 'seq_esm']
-
 
 
 config_1A = gp.ProteinGraphConfig(**{**dist_edge_func, **one_hot})

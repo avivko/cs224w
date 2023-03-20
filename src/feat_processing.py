@@ -3,8 +3,8 @@ import pandas as pd
 from sklearn.preprocessing import LabelBinarizer
 def process_features(batch, just_onehot: bool, also_concat_coords=False):
     if just_onehot:
-        h = batch.amino_acid_one_hot.float()
-        return h
+        h = batch.amino_acid_one_hot
+        return h.float().cuda()
 
     all_feats = ['amino_acid_one_hot', 'esm_embedding', 'rsa', 'meiler',
                  'molecularweight', 'ss', 'bulkiness']  # phi and psi?

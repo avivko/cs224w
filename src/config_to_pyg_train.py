@@ -221,6 +221,9 @@ def process_features(batch, just_onehot: bool, also_concat_coords=False):
             # print(f'Missing attribute: {attrname}')
             continue
 
+        if type(attr) == list: # incase is list and not tensor
+            attr = torch.tensor(attr)
+
         if type(attr[0]) == pd.Series:  # converting pd.Series to numpy
             for i in range(len(attr)):
                 attr[i] = attr[i].to_numpy()
@@ -231,7 +234,6 @@ def process_features(batch, just_onehot: bool, also_concat_coords=False):
             att_onehot = torch.FloatTensor(lb.transform(attr[0]))
             h_list.append(att_onehot)
         else:
-            print(attr)
             if len(attr.shape) == 1:
                 attr = attr.unsqueeze(1)
             h_list.append(attr)

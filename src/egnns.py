@@ -263,9 +263,12 @@ class SimpleEGNN(pl.LightningModule):
         )
         '''
         for att in x.__dict__.keys():
+            print(att)
             att_val = getattr(x, att)
+            print(att_val)
             if type(att_val) == list:
                 setattr(x, att, torch.tensor(*att_val).float().cuda())
+        print('problematic coords:', x.coords)
         # CALL PROCESSING FUNCTION THAT RETURNS H
         feats, coords = self.model(
             h=process_features(x, just_onehot=False),

@@ -24,11 +24,12 @@ from graphein.protein.edges.distance import (add_peptide_bonds,
                                             )
 
 # global params
+CONFIG = sys.argv[1]
 HOME =  '~/cs224w'
 DATA = HOME + '/data/'
-LIGHTNING_LOGS =  HOME + '/lightning_logs/'
+LIGHTNING_LOGS =  HOME + f'/lightning_logs/{CONFIG}/'
 TORCH_HOME = HOME + '/torch_home/'
-CONFIG = sys.argv[1]
+
 
 
 p_ds = os.path.join(os.path.dirname(__file__), '../structural_rearrangement_data.csv')
@@ -165,7 +166,7 @@ convertor = GraphFormatConvertor(src_format="nx", dst_format="pyg", columns=["co
 
 train_ds = InMemoryProteinGraphDataset(
     root=DATA,
-    name="train",
+    name=f"{CONFIG}_train",
     pdb_codes=train,
     graph_label_map=train_label_map,
     graphein_config=config,
@@ -175,7 +176,7 @@ train_ds = InMemoryProteinGraphDataset(
 
 valid_ds = InMemoryProteinGraphDataset(
     root=DATA,
-    name="valid",
+    name=f"{CONFIG}_valid",
     pdb_codes=valid,
     graph_label_map=valid_label_map,
     graphein_config=config,
@@ -186,7 +187,7 @@ valid_ds = InMemoryProteinGraphDataset(
 test_ds = InMemoryProteinGraphDataset(
     root=DATA,
     graph_label_map=test_label_map,
-    name="test",
+    name=f"{CONFIG}_test",
     pdb_codes=test,
     graphein_config=config,
     graph_format_convertor=convertor,

@@ -1,4 +1,5 @@
 """EGNN Implementation from Satorras et al. https://github.com/vgsatorras/egnn"""
+from feat_processing import process_features
 import pytorch_lightning as pl
 import torch
 import torch.nn as nn

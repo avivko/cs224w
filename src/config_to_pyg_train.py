@@ -238,7 +238,7 @@ def process_features(batch, just_onehot: bool, also_concat_coords=False):
                 attr = attr.unsqueeze(1)
             h_list.append(attr)
 
-    h = torch.concatenate(h_list, dim=1)
+    h = torch.concat(h_list, dim=1)
     return h.to(torch.float32)
 
 

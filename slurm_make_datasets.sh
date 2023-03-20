@@ -17,4 +17,4 @@ export TORCH_HOME=$working_dir/torch_home
 
 config=config_1A
 
-python $working_dir/cs224w/src/multi_configs_to_pyg.py $config
+python $working_dir/cs224w/src/config_to_pyg_train.py $config

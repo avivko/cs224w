@@ -221,8 +221,8 @@ def process_features(batch, just_onehot: bool, also_concat_coords=False):
             # print(f'Missing attribute: {attrname}')
             continue
 
-        if type(attr) == list: # incase is list and not tensor
-            attr = torch.tensor(attr)
+        if type(attr) == list: # in case is list and not tensor
+            attr = torch.tensor(*attr)
 
         if type(attr[0]) == pd.Series:  # converting pd.Series to numpy
             for i in range(len(attr)):

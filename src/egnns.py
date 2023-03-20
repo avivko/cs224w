@@ -262,13 +262,10 @@ class SimpleEGNN(pl.LightningModule):
             edge_attr=None,
         )
         '''
-        print('problematic coords before:', x.coords)
         for att in ["coords", "edge_index", "batch" ,"graph_y"]:
             att_val = getattr(x, att)
             if type(att_val) == list:
                 setattr(x, att, torch.tensor(*att_val).squeeze().float().cuda())
-
-        print('problematic coords after:', x.coords)
 
         feats, coords = self.model(
             h=process_features(x, just_onehot=False),

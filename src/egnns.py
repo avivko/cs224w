@@ -270,12 +270,13 @@ class SimpleEGNN(pl.LightningModule):
         for att in ["coords", "edge_index", "batch" ,"graph_y"]:
             att_val = getattr(x, att)
             if type(att_val) == list:
-                setattr(x, att, torch.tensor(*att_val).float().cuda())
+                setattr(x, att, torch.tensor(*att_val).squeeze().float().cuda())
+
         print('problematic coords after:', x.coords)
 
         feats, coords = self.model(
             h=process_features(x, just_onehot=False),
-            x=x.coords.float(),
+            x=x.coords,
             edges=x.edge_index,
             edge_attr=None,
         )

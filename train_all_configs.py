@@ -1,7 +1,7 @@
 import os
 
 PWD='~/cs224w'
-CONDA_ENV = 'gpcs224w'
+CONDA_ENV = 'cs224proj'
 TORCH_HONE = PWD + '/torch_home'
 PATH_REPO = PWD +'/cs224w'
 PATH_SCRIPT = PATH_REPO + '/src/config_to_pyg_train.py'

@@ -266,8 +266,6 @@ class SimpleEGNN(pl.LightningModule):
             att_val = getattr(x, att)
             if type(att_val) == list:
                 setattr(x, att, torch.tensor(*att_val).float().cuda())
-        print('coords:', x.coords)
-        print('edgeindex:', x.edge_index)
         # CALL PROCESSING FUNCTION THAT RETURNS H
         feats, coords = self.model(
             h=process_features(x, just_onehot=False),

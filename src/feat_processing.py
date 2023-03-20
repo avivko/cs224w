@@ -38,4 +38,4 @@ def process_features(batch, just_onehot: bool, also_concat_coords=False):
             h_list.append(attr)
 
     h = torch.concat(h_list, dim=1)
-    return h.to(torch.float32)
+    return h.float().cuda()

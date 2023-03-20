@@ -53,10 +53,6 @@ class E_GCL(nn.Module):
                 nn.Sigmoid())
 
     def edge_model(self, source, target, radial, edge_attr):
-        print('source', source)
-        print('target', target)
-        print('radial', radial)
-        print('shapes', source.shape, target.shape. radial.shape)
         if edge_attr is None:  # Unused.
             out = torch.cat([source, target, radial], dim=1)
         else:

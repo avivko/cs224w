@@ -156,7 +156,7 @@ configs_dict = {
 
 
 # CHOOSE CONFIG FILE:
-config = configs_dict[CONFIG]
+curr_config = configs_dict[CONFIG]
 convertor = GraphFormatConvertor(src_format="nx", dst_format="pyg", columns=["coords", "edge_index",
                                                                              "amino_acid_one_hot", "bulkiness",
                                                                              "meiler", "molecularweight", "rsa",
@@ -169,7 +169,7 @@ train_ds = InMemoryProteinGraphDataset(
     name=f"{CONFIG}_train",
     pdb_codes=train,
     graph_label_map=train_label_map,
-    graphein_config=config,
+    graphein_config=curr_config,
     graph_format_convertor=convertor,
     graph_transformation_funcs=[]
     )
@@ -179,7 +179,7 @@ valid_ds = InMemoryProteinGraphDataset(
     name=f"{CONFIG}_valid",
     pdb_codes=valid,
     graph_label_map=valid_label_map,
-    graphein_config=config,
+    graphein_config=curr_config,
     graph_format_convertor=convertor,
     graph_transformation_funcs=[]
     )
@@ -189,7 +189,7 @@ test_ds = InMemoryProteinGraphDataset(
     graph_label_map=test_label_map,
     name=f"{CONFIG}_test",
     pdb_codes=test,
-    graphein_config=config,
+    graphein_config=curr_config,
     graph_format_convertor=convertor,
     graph_transformation_funcs=[]
     )

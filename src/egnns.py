@@ -223,6 +223,8 @@ class SimpleEGNN(pl.LightningModule):
         self.training_step_labels = []
         self.valid_step_outputs = []
         self.valid_step_labels = []
+        self.test_step_outputs = []
+        self.test_step_labels = []
         self.accuracy = torchmetrics.Accuracy('multiclass', num_classes=self.num_classes)
         self.micro_f1 = torchmetrics.F1Score(task='multiclass', num_classes=self.num_classes, average='micro')
         self.macro_f1 = torchmetrics.F1Score(task='multiclass', num_classes=self.num_classes, average='macro')
@@ -347,6 +349,17 @@ class SimpleEGNN(pl.LightningModule):
         y_pred_tags = torch.argmax(y_pred_softmax, dim=1)
         self.log("test_loss", loss, batch_size=self.batch_size)
         return loss
+
+    def on_test_epoch_end(self):
+        all_preds = torch.concatenate(self.test_step_outputs, dim=0)
+        all_labels = torch.concatenate(self.test_step_labels, dim=0)
+
+        loss = self.loss(all_preds, all_labels)
+        self.log('loss/test_loss', loss)
+        self.log_metrics(all_labels, all_preds, 'test')
+
+        self.test_step_outputs.clear()
+        self.test_step_labels.clear()
 
     def configure_optimizers(self) -> torch.optim.Optimizer:
         return torch.optim.Adam(params=self.parameters(), lr=0.001)

@@ -212,7 +212,7 @@ def main():
         benchmark=True,
         deterministic=False,
         num_sanity_val_steps=0,
-        max_epochs=50,
+        max_epochs=500,
         log_every_n_steps=1,
         default_root_dir=LIGHTNING_LOGS
     )

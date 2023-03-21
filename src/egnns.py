@@ -342,11 +342,12 @@ class SimpleEGNN(pl.LightningModule):
 
         y_hat = self(x).float()
         _, y = y.max(dim=1)
-
+        self.test_step_outputs.append(y_hat)
+        self.test_step_labels.append(y)
         loss = self.loss(y_hat, y)
 
-        y_pred_softmax = torch.log_softmax(y_hat, dim=1)
-        y_pred_tags = torch.argmax(y_pred_softmax, dim=1)
+        #y_pred_softmax = torch.log_softmax(y_hat, dim=1)
+        #y_pred_tags = torch.argmax(y_pred_softmax, dim=1)
         self.log("test_loss", loss, batch_size=self.batch_size)
         return loss
 

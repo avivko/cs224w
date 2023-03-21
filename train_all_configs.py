@@ -1,6 +1,6 @@
 import os
 
-PWD='~/cs224w'
+PWD='/home/users/kormanav/cs224w'
 CONDA_ENV = 'cs224proj'
 TORCH_HONE = PWD + '/torch_home'
 PATH_REPO = PWD +'/cs224w'

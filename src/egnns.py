@@ -267,6 +267,8 @@ class SimpleEGNN(pl.LightningModule):
             if type(att_val) == list:
                 setattr(x, att, torch.tensor(*att_val).squeeze().float().cuda())
 
+        print(x)
+
         feats, coords = self.model(
             h=process_features(x, just_onehot=False),
             x=x.coords,

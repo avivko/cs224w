@@ -282,9 +282,9 @@ class SimpleEGNN(pl.LightningModule):
     def training_step(self, batch: Data, batch_idx) -> torch.Tensor:
         x = batch
         # y = batch.graph_y.unsqueeze(1).float()
-        y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes))
+        y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes)).float()
 
-        y_hat = self(x)
+        y_hat = self(x).float()
         # print(y_hat.dtype)
         _, y = y.max(dim=1)
         # print(y.shape)
@@ -313,9 +313,9 @@ class SimpleEGNN(pl.LightningModule):
     def validation_step(self, batch, batch_idx):
         x = batch
         # y = batch.graph_y.unsqueeze(1).float()
-        y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes))
+        y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes)).float()
 
-        y_hat = self(batch)
+        y_hat = self(batch).float()
         self.valid_step_outputs.append(y_hat)
         self.valid_step_labels.append(y)
         # self.log_metrics(y, y_hat, 'val')
@@ -337,9 +337,9 @@ class SimpleEGNN(pl.LightningModule):
     def test_step(self, batch, batch_idx):
         x = batch
         # y = batch.graph_y.unsqueeze(1).float()
-        y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes))
+        y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes)).float()
 
-        y_hat = self(x)
+        y_hat = self(x).float()
         _, y = y.max(dim=1)
 
         loss = self.loss(y_hat, y)

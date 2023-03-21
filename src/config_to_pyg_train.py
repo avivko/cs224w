@@ -171,7 +171,8 @@ train_ds = InMemoryProteinGraphDataset(
     graph_label_map=train_label_map,
     graphein_config=curr_config,
     graph_format_convertor=convertor,
-    graph_transformation_funcs=[]
+    graph_transformation_funcs=[],
+    num_cores=4
     )
 
 valid_ds = InMemoryProteinGraphDataset(
@@ -181,7 +182,8 @@ valid_ds = InMemoryProteinGraphDataset(
     graph_label_map=valid_label_map,
     graphein_config=curr_config,
     graph_format_convertor=convertor,
-    graph_transformation_funcs=[]
+    graph_transformation_funcs=[],
+    num_cores=4
     )
 
 test_ds = InMemoryProteinGraphDataset(
@@ -191,14 +193,15 @@ test_ds = InMemoryProteinGraphDataset(
     pdb_codes=test,
     graphein_config=curr_config,
     graph_format_convertor=convertor,
-    graph_transformation_funcs=[]
+    graph_transformation_funcs=[],
+    num_cores=4
     )
 
 
 # Create dataloaders
-train_loader = DataLoader(train_ds, batch_size=1, shuffle=False, drop_last=True)
-valid_loader = DataLoader(valid_ds, batch_size=16, shuffle=False, drop_last=True)
-test_loader = DataLoader(test_ds, batch_size=16, drop_last=True)
+train_loader = DataLoader(train_ds, batch_size=16, shuffle=False, drop_last=True, num_workers=16) #changed batch_size 1->16
+valid_loader = DataLoader(valid_ds, batch_size=16, shuffle=False, drop_last=True, num_workers=16)
+test_loader = DataLoader(test_ds, batch_size=16, drop_last=True, num_workers=16)
 
 
 def calc_num_feats(loader):

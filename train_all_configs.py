@@ -21,7 +21,7 @@ def make_bash(py_script, config, job_name, slurm_out, torch_home, conda_env):
     sbatch_file.write("#SBATCH --cpus-per-task=16 \n")
     sbatch_file.write("#SBATCH --time=02:00:00 \n")
     sbatch_file.write("#SBATCH --partition=owners,gpu \n")
-    sbatch_file.write("#SBATCH --mem-per-cpu=15GB \n")
+    sbatch_file.write("#SBATCH --mem-per-cpu=20GB \n")
     sbatch_file.write(f"#SBATCH --error={slurm_out}/{j_name}_job_%J.err \n")
     sbatch_file.write(f"#SBATCH --output={slurm_out}/{j_name}_job_%J.out \n")
     sbatch_file.write("\n")

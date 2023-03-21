@@ -5,9 +5,9 @@ CONDA_ENV = 'cs224wproj'
 TORCH_HONE = PWD + '/torch_home'
 PATH_REPO = PWD +'/cs224w'
 PATH_SCRIPT = PATH_REPO + '/src/config_to_pyg_train.py'
-CONFIGS = ["config_1A", "config_1B","config_1C",
-           "config_2A","config_2B", "config_2C",
-           "config_3A","config_3B","config_3C"]
+CONFIGS = ["config_1A","config_1C", # "config_1B",
+           "config_2A", "config_2C", # "config_2B",
+           "config_3A","config_3C"] # "config_3B"
 SLURM_OUT = PWD + '/slurm_out'
 
 def make_bash(py_script, config, job_name, slurm_out, torch_home, conda_env):

@@ -108,12 +108,12 @@ def main():
     one_hot = {"node_metadata_functions" : [gp.amino_acid_one_hot]}
 
     # B:
-    esm_func = get_esm_funcs(get_seq_esm=True, get_res_esm=False)
+    #esm_func = get_esm_funcs(get_seq_esm=True, get_res_esm=False)
 
     # C:
     all_graph_metadata = {"graph_metadata_functions" : [gp.rsa,
                                                         gp.secondary_structure
-                                                        ] + esm_func['graph_metadata_functions']}
+                                                        ] }#+ esm_func['graph_metadata_functions']}
     all_node_metadata = {"node_metadata_functions" : [gp.amino_acid_one_hot,
                                                       gp.meiler_embedding,
                                                       partial(gp.expasy_protein_scale, add_separate=True)],
@@ -123,26 +123,26 @@ def main():
 
 
     config_1A = gp.ProteinGraphConfig(**{**dist_edge_func, **one_hot})
-    config_1B = gp.ProteinGraphConfig(**{**dist_edge_func, **esm_func})
+    #config_1B = gp.ProteinGraphConfig(**{**dist_edge_func, **esm_func})
     config_1C = gp.ProteinGraphConfig(**{**dist_edge_func, **all_graph_metadata, **all_node_metadata})
 
     config_2A = gp.ProteinGraphConfig(**{**select_edge_func, **one_hot})
-    config_2B = gp.ProteinGraphConfig(**{**select_edge_func, **esm_func})
+    #config_2B = gp.ProteinGraphConfig(**{**select_edge_func, **esm_func})
     config_2C = gp.ProteinGraphConfig(**{**select_edge_func, **all_graph_metadata, **all_node_metadata})
 
     config_3A = gp.ProteinGraphConfig(**{**all_edge_func, **one_hot})
-    config_3B = gp.ProteinGraphConfig(**{**all_edge_func, **esm_func})
+    #config_3B = gp.ProteinGraphConfig(**{**all_edge_func, **esm_func})
     config_3C = gp.ProteinGraphConfig(**{**all_edge_func, **all_graph_metadata, **all_node_metadata})
 
     configs_dict = {
         "config_1A": config_1A,
-        "config_1B": config_1B,
+       # "config_1B": config_1B,
         "config_1C": config_1C,
         "config_2A": config_2A,
-        "config_2B": config_2B,
+       # "config_2B": config_2B,
         "config_2C": config_2C,
         "config_3A": config_3A,
-        "config_3B": config_3B,
+      #  "config_3B": config_3B,
         "config_3C": config_3C
     }
 
@@ -164,7 +164,7 @@ def main():
         graphein_config=curr_config,
         graph_format_convertor=convertor,
         graph_transformation_funcs=[],
-        num_cores=1
+        num_cores=16
         )
 
     valid_ds = InMemoryProteinGraphDataset(
@@ -175,7 +175,7 @@ def main():
         graphein_config=curr_config,
         graph_format_convertor=convertor,
         graph_transformation_funcs=[],
-        num_cores=1
+        num_cores=16
         )
 
     test_ds = InMemoryProteinGraphDataset(
@@ -186,13 +186,13 @@ def main():
         graphein_config=curr_config,
         graph_format_convertor=convertor,
         graph_transformation_funcs=[],
-        num_cores=1
+        num_cores=16
         )
 
 
     # Create dataloaders
-    train_loader = DataLoader(train_ds, batch_size=16, shuffle=False, drop_last=True, num_workers=1) #changed batch_size 1->16
-    valid_loader = DataLoader(valid_ds, batch_size=16, shuffle=False, drop_last=True, num_workers=1)
+    train_loader = DataLoader(train_ds, batch_size=16, shuffle=False, drop_last=True, num_workers=15)
+    valid_loader = DataLoader(valid_ds, batch_size=16, shuffle=False, drop_last=True, num_workers=15)
     test_loader = DataLoader(test_ds, batch_size=16, drop_last=True, num_workers=1)
 
 

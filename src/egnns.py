@@ -233,6 +233,8 @@ class SimpleEGNN(pl.LightningModule):
         preds:  Predicted data labels
         mode:   Either 'train' or 'test'. For logging
         '''
+        print(f'y: {y}')
+        print(f'pred: {preds}')
         micro_f1 = self.micro_f1(preds, y)
         self.log(f'f1/{mode}/micro_f1', micro_f1)
         macro_f1 = self.macro_f1(preds, y)
@@ -266,8 +268,6 @@ class SimpleEGNN(pl.LightningModule):
             att_val = getattr(x, att)
             if type(att_val) == list:
                 setattr(x, att, torch.tensor(*att_val).squeeze().float().cuda())
-
-        print(x)
 
         feats, coords = self.model(
             h=process_features(x, just_onehot=False),

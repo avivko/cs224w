@@ -262,7 +262,7 @@ class SimpleEGNN(pl.LightningModule):
             edge_attr=None,
         )
         '''
-        for att in ["coords", "edge_index", "batch" ,"graph_y"]:
+        for att in ["coords", "edge_index", "batch" ,"graph_y", "node_id"]:
             att_val = getattr(x, att)
             if type(att_val) == list:
                 setattr(x, att, torch.tensor(*att_val).squeeze().float().cuda())

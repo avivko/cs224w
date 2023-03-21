@@ -1,7 +1,7 @@
 import os
 
 PWD='/home/users/kormanav/cs224w'
-CONDA_ENV = 'cs224proj'
+CONDA_ENV = 'cs224wproj'
 TORCH_HONE = PWD + '/torch_home'
 PATH_REPO = PWD +'/cs224w'
 PATH_SCRIPT = PATH_REPO + '/src/config_to_pyg_train.py'

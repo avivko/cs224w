@@ -172,7 +172,7 @@ train_ds = InMemoryProteinGraphDataset(
     graphein_config=curr_config,
     graph_format_convertor=convertor,
     graph_transformation_funcs=[],
-    num_cores=4
+    num_cores=1
     )
 
 valid_ds = InMemoryProteinGraphDataset(
@@ -183,7 +183,7 @@ valid_ds = InMemoryProteinGraphDataset(
     graphein_config=curr_config,
     graph_format_convertor=convertor,
     graph_transformation_funcs=[],
-    num_cores=4
+    num_cores=1
     )
 
 test_ds = InMemoryProteinGraphDataset(
@@ -194,14 +194,14 @@ test_ds = InMemoryProteinGraphDataset(
     graphein_config=curr_config,
     graph_format_convertor=convertor,
     graph_transformation_funcs=[],
-    num_cores=4
+    num_cores=1
     )
 
 
 # Create dataloaders
-train_loader = DataLoader(train_ds, batch_size=16, shuffle=False, drop_last=True, num_workers=16) #changed batch_size 1->16
-valid_loader = DataLoader(valid_ds, batch_size=16, shuffle=False, drop_last=True, num_workers=16)
-test_loader = DataLoader(test_ds, batch_size=16, drop_last=True, num_workers=16)
+train_loader = DataLoader(train_ds, batch_size=16, shuffle=False, drop_last=True, num_workers=1) #changed batch_size 1->16
+valid_loader = DataLoader(valid_ds, batch_size=16, shuffle=False, drop_last=True, num_workers=1)
+test_loader = DataLoader(test_ds, batch_size=16, drop_last=True, num_workers=1)
 
 
 def calc_num_feats(loader):

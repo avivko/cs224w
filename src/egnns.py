@@ -233,7 +233,6 @@ class SimpleEGNN(pl.LightningModule):
         preds:  Predicted data labels
         mode:   Either 'train' or 'test'. For logging
         '''
-        preds = torch.softmax(preds, dim=1)
         micro_f1 = self.micro_f1(preds, y)
         self.log(f'f1/{mode}/micro_f1', micro_f1)
         macro_f1 = self.macro_f1(preds, y)
@@ -313,6 +312,7 @@ class SimpleEGNN(pl.LightningModule):
         x = batch
         # y = batch.graph_y.unsqueeze(1).float()
         y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes)).float()
+        _, y = y.max(dim=1)
 
         y_hat = self(batch).float()
         self.valid_step_outputs.append(y_hat)

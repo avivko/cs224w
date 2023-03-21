@@ -217,7 +217,7 @@ class SimpleEGNN(pl.LightningModule):
             nn.ReLU(),
             nn.Linear(out_feats, num_classes),
         )
-        self.loss = loss_fn()
+        self.loss = loss_fn(weight=torch.tensor([1.0,1.0,1.0,1.0,1.0,0.3]).float())
         self.batch_size = batch_size
         self.training_step_outputs = []
         self.training_step_labels = []

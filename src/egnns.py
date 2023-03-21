@@ -316,7 +316,7 @@ class SimpleEGNN(pl.LightningModule):
         y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes))
 
         y_hat = self(batch)
-        self.validation_step_trainpend(y_hat)
+        self.validation_step_train.append(y_hat)
         self.validation_step_labels.append(y)
         # self.log_metrics(y, y_hat, 'val')
         loss = self.loss(y_hat, y)

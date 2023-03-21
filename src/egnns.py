@@ -233,8 +233,7 @@ class SimpleEGNN(pl.LightningModule):
         preds:  Predicted data labels
         mode:   Either 'train' or 'test'. For logging
         '''
-        print(f'y: {y}')
-        print(f'pred: {preds}')
+        preds = torch.softmax(preds, dim=1)
         micro_f1 = self.micro_f1(preds, y)
         self.log(f'f1/{mode}/micro_f1', micro_f1)
         macro_f1 = self.macro_f1(preds, y)

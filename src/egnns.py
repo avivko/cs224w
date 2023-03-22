@@ -217,7 +217,7 @@ class SimpleEGNN(pl.LightningModule):
             nn.ReLU(),
             nn.Linear(out_feats, num_classes),
         )
-        self.loss = loss_fn(weight=torch.tensor([1.0,1.0,1.0,1.0,1.0,0.3]).float())
+        self.loss = loss_fn(weight=torch.tensor([1.0,1.0,1.0,1.0,1.0,0.1]).float().cuda())
         self.batch_size = batch_size
         self.training_step_outputs = []
         self.training_step_labels = []
@@ -363,4 +363,4 @@ class SimpleEGNN(pl.LightningModule):
         self.test_step_labels.clear()
 
     def configure_optimizers(self) -> torch.optim.Optimizer:
-        return torch.optim.Adam(params=self.parameters(), lr=0.001)
+        return torch.optim.Adam(params=self.parameters(), lr=0.005)

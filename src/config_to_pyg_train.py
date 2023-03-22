@@ -19,7 +19,7 @@ from graphein.ml.conversion import GraphFormatConvertor
 CONFIG = sys.argv[1]
 HOME =  '~/cs224w'
 DATA = HOME + '/data/'
-LIGHTNING_LOGS =  HOME + f'/lightning_logs/{CONFIG}_weighted/'
+LIGHTNING_LOGS =  HOME + f'/lightning_logs/{CONFIG}_weighted_deissero/'
 TORCH_HOME = HOME + '/torch_home/'
 
 def main():

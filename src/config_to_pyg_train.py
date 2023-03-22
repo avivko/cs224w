@@ -48,7 +48,7 @@ def main():
                         '1slc'] \
                      + ['2d1z', '1oee', '4kiv', '2cbm', '1glh', '1qsa', '1bk7', '1qjv', '1e9n', '1vz2', '1czt', '3bi9',
                         '2e4p', '1o9z', '1l0x', '1qba', '2jcp', '1sgk', '2jh1', '2e1u', '1smn', '2fma', '2g7e', '2vl3',
-                        '1g0z']
+                        '1g0z', '1uc8']
 
     valid_bad_pdbs = ['1vh3', '1x0v', '2b4v', '1tr9', '3bgu', '3bu9', '1uj4', '3c8n', '2a6c', '2r7f', '2hzb', '2qgq'] \
                      + ['2e2n', '2qrj', '1r0s', '1lr9', '1dcl', '3ezm', '3c3b', '2ddb', '2qpq', '1aja', '1pzt', '3seb',
@@ -149,8 +149,8 @@ def main():
     #esm_func = get_esm_funcs(get_seq_esm=True, get_res_esm=False)
 
     # C:
-    all_graph_metadata = {"graph_metadata_functions" : [gp.rsa,
-                                                        gp.secondary_structure
+    all_graph_metadata = {"graph_metadata_functions" : [gp.rsa #,
+                                                        #gp.secondary_structure
                                                         ] }#+ esm_func['graph_metadata_functions']}
     all_node_metadata = {"node_metadata_functions" : [gp.amino_acid_one_hot,
                                                       gp.meiler_embedding,
@@ -188,10 +188,13 @@ def main():
     # CHOOSE CONFIG FILE:
     curr_config = configs_dict[CONFIG]
     convertor = GraphFormatConvertor(src_format="nx", dst_format="pyg", columns=["coords", "edge_index",
-                                                                                 "amino_acid_one_hot", "bulkiness",
-                                                                                 "meiler", "molecularweight", "rsa",
-                                                                                 "esm_embedding_A", "esm_embedding",
-                                                                                 "ss"])
+                                                                             "amino_acid_one_hot", "bulkiness",
+                                                                             "meiler", "rsa",
+                                                                             "esm_embedding_A", "esm_embedding",
+                                                                             "pka_rgroup", "isoelectric_points",
+                                                                             "polaritygrantham", "hphob_black",
+                                                                             "transmembranetendency"
+                                                                              ])
 
 
     train_ds = InMemoryProteinGraphDataset(

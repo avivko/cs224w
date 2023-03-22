@@ -6,8 +6,12 @@ def process_features(batch, just_onehot: bool, also_concat_coords=False):
         h = batch.amino_acid_one_hot
         return h.float().cuda()
 
-    all_feats = ['amino_acid_one_hot', 'esm_embedding', 'rsa', 'meiler',
-                 'molecularweight', 'ss', 'bulkiness']  # phi and psi?
+    all_feats = ["amino_acid_one_hot", "bulkiness",
+              "meiler", "rsa",
+              "esm_embedding_A", "esm_embedding",
+              "pka_rgroup", "isoelectric_points",
+              "polaritygrantham", "hphob_black",
+              "transmembranetendency"]
 
     dssp_ss = ['H', 'B', 'E', 'G', 'I', 'T', 'S', '-']
     lb = LabelBinarizer().fit(dssp_ss)

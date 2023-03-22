@@ -27,6 +27,44 @@ def main():
     p_ds = os.path.join(os.path.dirname(__file__), '../structural_rearrangement_data.csv')
     df = pd.read_csv(p_ds)
 
+    # get rid of bad pdbs (result in broken dssp features)
+
+    train_bad_pdbs = ['1u6e', '3b7y', '1fdp', '2vj2', '1n2o', '1nxu', '1q18', '1pn2', '1vh3', '1xk7', '2q5r', '2q50',
+                      '2olu', '1w2f', '1wxx', '2zc2', '3bwb', '2qt8', '2amj', '1h7s', '1zvw', '2f9t', '2f4b', '1jfv',
+                      '1ujm', '2b4v', '2etv', '3c8v', '1tr9', '2imo', '3bgu', '2pyq', '1upl', '1x2g', '2gzr', '1od4',
+                      '2qvl', '2i7h', '2dg0', '1evq', '2oyc', '2fyo', '1kko', '2a0k', '1uuj', '1u8t', '2bl7', '2c3v',
+                      '1p5q', '2gvl', '2hvf', '2rad', '3c8n', '2z2n', '2a6c', '1b6w', '1u24', '2nyh', '1k75', '2r7f',
+                      '2raf', '2qgq', '1ww8', '3c8h', '2eh1', '3db4', '2q4o', '3eo4', '2hzr', '2ghr', '1zs7', '1g5r',
+                      '2r11', '1yqg', '3eua', '2dg0', '1evq', '2oyc', '2fyo', '2a0k', '1uj4', '1g7r', '1ynf', '1wpo',
+                      '2qm8', '1vk3', '2cn2', '2vcl', '2rkt', '1l7o', '2r4i', '2it9', '1n4d', '2g6v', '1i3c', '1ox8',
+                      '1fbt', '1n57', '2rem', '1xxl', '2v3j', '2g0a', '1q6h', '2q22'] \
+                     + ['1lfh', '1gqz', '1yz5', '1oid', '1z15', '1l5t', '2cgk', '1sbq', '1vgt', '2ps3', '1bet', '1r5d',
+                        '1eut', '1qmt', '1ogb', '2i78', '3b8s', '1uln', '1so7', '1kn9', '1pu5', '1rlr', '1sgz', '1k5h',
+                        '1kx9'] \
+                     + ['1tib', '1bsq', '1r1c', '1fo8', '1s0g', '1goh', '1m47', '1xyf', '1lyy', '2ofj', '1uzq', '2qfd',
+                        '1br8', '1h8n', '1o7v', '1pz9', '1a8d', '1yjl', '2uyr', '2plf', '2rck', '1pbg', '1pgs'] \
+                     + ['2i2w', '1beo', '1hxj', '1gy0', '2qzp', '2c7i', '2box', '1psr', '2yrf', '1mzl', '2fp8', '1arl',
+                        '2yyv', '1iad', '2qev', '2veo', '1l5n', '1g24', '1w90', '1u4r', '1xze', '1z52', '1jwf', '2dcz',
+                        '1slc'] \
+                     + ['2d1z', '1oee', '4kiv', '2cbm', '1glh', '1qsa', '1bk7', '1qjv', '1e9n', '1vz2', '1czt', '3bi9',
+                        '2e4p', '1o9z', '1l0x', '1qba', '2jcp', '1sgk', '2jh1', '2e1u', '1smn', '2fma', '2g7e', '2vl3',
+                        '1g0z']
+
+    valid_bad_pdbs = ['1vh3', '1x0v', '2b4v', '1tr9', '3bgu', '3bu9', '1uj4', '3c8n', '2a6c', '2r7f', '2hzb', '2qgq'] \
+                     + ['2e2n', '2qrj', '1r0s', '1lr9', '1dcl', '3ezm', '3c3b', '2ddb', '2qpq', '1aja', '1pzt', '3seb',
+                        '2p52', '2ze4', '1rn4', '2bce', '2fjy', '1m0z', '1fcq', '2f6l', '2ok3', '2bis', '1ppn', '1h8u',
+                        '1l8f', '2uy2', '2egt', '1plu', '1dqg', '2j0a', '3cj1', '153l']
+
+    test_bad_pdbs = ['3cze', '2q50', '2olu', '2qza', '2zc2', '2f9t', '2vrk', '2f6p', '1xe8', '2pgx', '1x2g', '2qvl',
+                     '2i7h', '1evq', '1sza', '2q04', '1u8t', '2c3v', '2hvf', '1wgc', '1u24', '1k75', '1twd', '3c8h',
+                     '2ghr', '1zs7', '1yqg'] \
+                    + ['1zty', '1rki', '3bqh', '2orx', '2fz6', '1dkl', '2f08', '1ozt', '2rca', '1avk', '1vf8', '1bt2',
+                       '1esc', '1wns', '2h74', '1nk1', '1xqv', '1lwb', '1pp3', '1knl', '2zg2', '2atb', '2d05', '1ogm',
+                       '1kuf']
+
+    all_bad = train_bad_pdbs + valid_bad_pdbs + test_bad_pdbs
+    df = df.loc[~df['Free PDB'].isin(all_bad)]
+
     # let's get rid of  duplicates
     df = df.loc[df["motion_type"] != "other_motion"]
 

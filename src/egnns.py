@@ -202,6 +202,7 @@ class SimpleEGNN(pl.LightningModule):
                  n_layers=2,
                  num_classes=6,
                  batch_size=16,
+                 class_loss_weights=None,
                  loss_fn=CrossEntropyLoss):
         super().__init__()
         self.num_classes = num_classes
@@ -217,7 +218,10 @@ class SimpleEGNN(pl.LightningModule):
             nn.ReLU(),
             nn.Linear(out_feats, num_classes),
         )
-        self.loss = loss_fn() # weight=torch.tensor([0.1,0.1,0.1,0.1,0.1,1.0]).float() [1.0,1.0,1.0,1.0,1.0,0.1]
+        if class_loss_weights:
+            self.loss = loss_fn(weight=torch.tensor(class_loss_weights).float()) # weight=torch.tensor([1.0,1.0,1.0,1.0,1.0,0.1]).float()
+        else:
+            self.loss = loss_fn()
         self.batch_size = batch_size
         self.training_step_outputs = []
         self.training_step_labels = []

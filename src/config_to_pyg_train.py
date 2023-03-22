@@ -19,7 +19,7 @@ from graphein.ml.conversion import GraphFormatConvertor
 CONFIG = sys.argv[1]
 HOME =  '~/cs224w'
 DATA = HOME + '/data/'
-LIGHTNING_LOGS =  HOME + f'/lightning_logs/{CONFIG}_latest/'
+LIGHTNING_LOGS =  HOME + f'/lightning_logs/{CONFIG}_weighted/'
 TORCH_HOME = HOME + '/torch_home/'
 
 def main():
@@ -157,7 +157,6 @@ def main():
                                                       partial(gp.expasy_protein_scale, add_separate=True)],
                          "dssp_config": gp.DSSPConfig()}
 
-    # ['amino_acid_one_hot', 'esm', 'rsa', 'meiler', 'molecularweight', 'ss', 'bulkiness', 'seq_esm']
 
 
     config_1A = gp.ProteinGraphConfig(**{**dist_edge_func, **one_hot})
@@ -247,7 +246,6 @@ def main():
 
 
     trainer = pl.Trainer(
-        # strategy=None,
         accelerator='gpu',
         devices=1,
         benchmark=True,
@@ -265,6 +263,7 @@ def main():
                       n_layers=2,
                       num_classes=6,
                       batch_size=64,
+                      class_loss_weights=[1/70, 1/39, 1/81, 1/42, 1/89, 1/199], # 1/class_size
                       loss_fn = CrossEntropyLoss)
     trainer.fit(model, train_dataloaders=train_loader, val_dataloaders=valid_loader)
 

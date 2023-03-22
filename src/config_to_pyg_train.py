@@ -205,7 +205,7 @@ def main():
         graphein_config=curr_config,
         graph_format_convertor=convertor,
         graph_transformation_funcs=[],
-        num_cores=16
+        num_cores=4
         )
 
     valid_ds = InMemoryProteinGraphDataset(
@@ -216,7 +216,7 @@ def main():
         graphein_config=curr_config,
         graph_format_convertor=convertor,
         graph_transformation_funcs=[],
-        num_cores=16
+        num_cores=4
         )
 
     test_ds = InMemoryProteinGraphDataset(
@@ -227,7 +227,7 @@ def main():
         graphein_config=curr_config,
         graph_format_convertor=convertor,
         graph_transformation_funcs=[],
-        num_cores=16
+        num_cores=4
         )
 
 

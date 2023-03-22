@@ -60,7 +60,7 @@ def main():
                      '2ghr', '1zs7', '1yqg'] \
                     + ['1zty', '1rki', '3bqh', '2orx', '2fz6', '1dkl', '2f08', '1ozt', '2rca', '1avk', '1vf8', '1bt2',
                        '1esc', '1wns', '2h74', '1nk1', '1xqv', '1lwb', '1pp3', '1knl', '2zg2', '2atb', '2d05', '1ogm',
-                       '1kuf']
+                       '1kuf', '2cfo', '1qzt', '2ghb']
 
     all_bad = train_bad_pdbs + valid_bad_pdbs + test_bad_pdbs
     df = df.loc[~df['Free PDB'].isin(all_bad)]
@@ -232,9 +232,9 @@ def main():
 
 
     # Create dataloaders
-    train_loader = DataLoader(train_ds, batch_size=16, shuffle=True, drop_last=True, num_workers=15)
-    valid_loader = DataLoader(valid_ds, batch_size=16, shuffle=True, drop_last=True, num_workers=15)
-    test_loader = DataLoader(test_ds, batch_size=16, shuffle=True, drop_last=True, num_workers=15)
+    train_loader = DataLoader(train_ds, batch_size=64, shuffle=True, drop_last=True, num_workers=16)
+    valid_loader = DataLoader(valid_ds, batch_size=64, shuffle=True, drop_last=False, num_workers=16)
+    test_loader = DataLoader(test_ds, batch_size=64, shuffle=True, drop_last=False, num_workers=16)
 
 
     def calc_num_feats(loader):
@@ -264,7 +264,7 @@ def main():
                       edge_feats=0,
                       n_layers=2,
                       num_classes=6,
-                      batch_size=16,
+                      batch_size=64,
                       loss_fn = CrossEntropyLoss)
     trainer.fit(model, train_dataloaders=train_loader, val_dataloaders=valid_loader)
 

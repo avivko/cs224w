@@ -281,21 +281,15 @@ class SimpleEGNN(pl.LightningModule):
 
     def training_step(self, batch: Data, batch_idx) -> torch.Tensor:
         x = batch
-        # y = batch.graph_y.unsqueeze(1).float()
         y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes)).float()
 
         y_hat = self(x).float()
-        # print(y_hat.dtype)
         _, y = y.max(dim=1)
-        # print(y.shape)
-        # print(y.dtype)
-        # self.log_accuracy(y, y_hat, 'train')
 
         self.training_step_outputs.append(y_hat)
         self.training_step_labels.append(y)
 
         loss = self.loss(y_hat, y)
-        # self.log('loss/train_loss', loss)
 
         return loss
 
@@ -312,16 +306,14 @@ class SimpleEGNN(pl.LightningModule):
 
     def validation_step(self, batch, batch_idx):
         x = batch
-        # y = batch.graph_y.unsqueeze(1).float()
         y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes)).float()
         _, y = y.max(dim=1)
 
         y_hat = self(batch).float()
         self.valid_step_outputs.append(y_hat)
         self.valid_step_labels.append(y)
-        # self.log_metrics(y, y_hat, 'val')
         loss = self.loss(y_hat, y)
-        # self.log('loss/val_loss', loss)
+
         return loss
 
     def on_validation_epoch_end(self):
@@ -337,7 +329,6 @@ class SimpleEGNN(pl.LightningModule):
 
     def test_step(self, batch, batch_idx):
         x = batch
-        # y = batch.graph_y.unsqueeze(1).float()
         y = batch.graph_y.reshape((int(x.graph_y.shape[0] / self.num_classes), self.num_classes)).float()
 
         y_hat = self(x).float()
@@ -346,8 +337,6 @@ class SimpleEGNN(pl.LightningModule):
         self.test_step_labels.append(y)
         loss = self.loss(y_hat, y)
 
-        #y_pred_softmax = torch.log_softmax(y_hat, dim=1)
-        #y_pred_tags = torch.argmax(y_pred_softmax, dim=1)
         self.log("test_loss", loss, batch_size=self.batch_size)
         return loss
 
@@ -363,4 +352,4 @@ class SimpleEGNN(pl.LightningModule):
         self.test_step_labels.clear()
 
     def configure_optimizers(self) -> torch.optim.Optimizer:
-        return torch.optim.Adam(params=self.parameters(), lr=0.005)
+        return torch.optim.Adam(params=self.parameters(), lr=0.001)

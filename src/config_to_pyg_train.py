@@ -232,8 +232,8 @@ def main():
 
     # Create dataloaders
     train_loader = DataLoader(train_ds, batch_size=64, shuffle=True, drop_last=True, num_workers=16)
-    valid_loader = DataLoader(valid_ds, batch_size=64, shuffle=True, drop_last=False, num_workers=16)
-    test_loader = DataLoader(test_ds, batch_size=64, shuffle=True, drop_last=False, num_workers=16)
+    valid_loader = DataLoader(valid_ds, batch_size=64, shuffle=False, drop_last=False, num_workers=16)
+    test_loader = DataLoader(test_ds, batch_size=64, shuffle=False, drop_last=False, num_workers=16)
 
 
     def calc_num_feats(loader):
